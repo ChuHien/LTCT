@@ -1,8 +1,8 @@
 <?php 
-	class Bill extends Model
+	class Order extends Model
 	{
 		//Hàm lấy danh sách đơn hàng
-		function selectBill($id = null)
+		function selectOrder($id = null)
 		{
 			//Kiểm tra có id truyền vào không. Nếu không thì lấy toàn bộ
 			if($id == null)
@@ -17,7 +17,7 @@
 		}
 
 		//Lấy danh sách chi tiết đơn hàng
-		function selectBillDetail($id = null)
+		function selectOrderDetail($id = null)
 		{
 			//Kiểm tra có id truyền vào không. Nếu không thì lấy toàn bộ
 			if($id == null)
@@ -32,7 +32,7 @@
 		}
 
 		//Hàm cập nhật hóa đơn
-		function updateBill($id,$stt)
+		function updateOrder($id,$stt)
 		{
 			//Câu truy vấn
 			$sql = "UPDATE bill SET status = {$stt} WHERE id_bill = {$id}";
