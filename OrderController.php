@@ -1,37 +1,45 @@
 <?php 
-	class edit_bill extends Controller
+	class OrderController extends Controller
 	{
-		private $billModel;
+		private $OrderModel;
 		private $productModel;
 		function __construct()
 		{
-			require("application/models/bill_model.php");
-			require("application/models/product_model.php");
-			$this->billModel = new Bill;
+			require("OrderModel.php");
+			require("product_model.php");
+			$this->OrderModel = new Order;
 			$this->productModel = new Product;
 		}
 
 		function getOrderInf()
 		{
 			$id = $_GET["id_bill"];
-
 			//Tạo biến lấy danh sách chi tiết hoá đơn
-			$rs = $this->billModel->selectBillDetail($id);
-			$bill = $this->billModel->selectBill($id);
-			$view = array('index' => 'index' );
-			$data = array('rs' => $rs, 'bill' => $bill );
+			$rs = $this->OrderModel->selectOrderDetail($id);
+			$bill = $this->OrderModel->selectOrder($id);
+			$view = array('OrderDetailView' => 'OrderDetailView' );
+			$data = array('rs' => $rs, 'Order' => $Order );
 
 			//Đổ dữ liệu ra view
 			$this->view($view,$data,false,true);
 		}
 
-		function updateBill()
+		function setStatusOrder()
 		{
 			$stt = $_POST["slStatus"];
 			$id = $_GET["id_bill"];
 			// var_dump($stt);
 			// var_dump($id);
-			$this->billModel->updateBill($id,$stt);
+			$this->OrderModel->updateOrder($id,$stt);
+			header("Location: index.php?c=admin&a=listBill");
+			exit;			
+		}
+
+		function cancelOrder()
+		{
+			$stt = $_POST["slStatus"];
+			$id = $_GET["id_bill"];
+			$this->OrderModel->updateOrder($id,$stt);
 			header("Location: index.php?c=admin&a=listBill");
 			exit;			
 		}
